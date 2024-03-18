@@ -1,4 +1,4 @@
-name: Python CI
+name: CI
 
 on:
   push:
@@ -7,12 +7,12 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
-
+  build-and-test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        python-version: [3.11, ]
+        python-version: ["3.10", "3.11"]
 
     steps:
     - uses: actions/checkout@v2
@@ -20,16 +20,10 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies and package
+    - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest
-        python setup.py install
-
-    - name: Install package
-      run: |
-        python -m pip install --upgrade pip
-        python setup.py install
+        pip install torch pytest
+        pip install .
     - name: Run tests
-      run: |
-        pytest test/
+      run: pytest
