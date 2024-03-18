@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-__version__ = "0.2"
+__version__ = "0.3"
 
 install_requires = [
     "torch>=1.13.1",
