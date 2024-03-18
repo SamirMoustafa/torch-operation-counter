@@ -64,7 +64,7 @@ if __name__ == "__main__":
             print(f"{module}::{op_name}: {op_count} OPs")
 
     print()
-    # Print the total number of operations by two layers of GCN with 32 hidden channels.
+    # Print the total number of operations by two layers of GCN.
     # The total number of operations should be similar to 19 GigaOPs as reported in the introduction section of the paper
     # Tailor, Shyam A. et al. “Degree-Quant: Quantization-Aware Training for Graph Neural Networks.”, ICLR 2021
     print(f"{model.__class__.__name__}::Total operations: GigiaOP(s) {ops_counter.total_operations / 1e9}")
