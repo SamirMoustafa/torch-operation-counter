@@ -4,7 +4,7 @@ from torch.nn import Module, ModuleList, Linear
 
 from torch_geometric.nn import GCNConv
 
-from torch_ops_counter import OperationsCounterMode
+from torch_operation_counter import OperationsCounterMode
 
 
 class GCN(Module):

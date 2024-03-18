@@ -3,7 +3,7 @@ import unittest
 from torch import Tensor
 from torch.nn import Module
 
-from torch_ops_counter import OperationsCounterMode
+from torch_operation_counter import OperationsCounterMode
 
 
 class MatrixMultiplicationModule(Module):

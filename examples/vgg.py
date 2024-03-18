@@ -2,7 +2,7 @@ import torch
 import timm
 from torch import randn
 
-from torch_ops_counter import OperationsCounterMode
+from torch_operation_counter import OperationsCounterMode
 
 
 if __name__ == "__main__":

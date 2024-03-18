@@ -91,7 +91,7 @@ class MessagePassing(Module):
 if __name__ == "__main__":
     from torch import ones, rand, long, zeros, device
 
-    from torch_ops_counter import OperationsCounterMode
+    from torch_operation_counter import OperationsCounterMode
 
 
     class NativeMessagePassing(MessagePassing):

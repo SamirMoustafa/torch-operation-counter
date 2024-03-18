@@ -4,7 +4,7 @@ from typing import Any, List
 
 from torch import ops
 
-from torch_ops_counter.utils import conv_ops_count, transpose_shape
+from torch_operation_counter.utils import conv_ops_count, transpose_shape
 
 
 def basic_ops(inputs: List[Any], outputs: List[Any]) -> Number:

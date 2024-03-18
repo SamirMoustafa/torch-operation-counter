@@ -6,7 +6,7 @@ install_requires = [
     "torch>=1.13.1",
 ]
 
-pkg_name = "torch_ops_counter"
+pkg_name = "torch_operation_counter"
 setup(
     name=pkg_name,
     version=__version__,

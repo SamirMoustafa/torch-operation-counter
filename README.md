@@ -20,7 +20,7 @@ _________________________
 import torch
 from torchvision.models import resnet18
 
-from torch_ops_counter import OperationsCounterMode
+from torch_operation_counter import OperationsCounterMode
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

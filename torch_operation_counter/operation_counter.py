@@ -11,9 +11,9 @@ from torch.autograd import Function
 from torch.utils._pytree import tree_map
 from torch.utils._python_dispatch import TorchDispatchMode
 
-from torch_ops_counter.counters import operations_mapping
-from torch_ops_counter.ignore_modules import aten_ignore
-from torch_ops_counter.utils import normalize_tuple
+from torch_operation_counter.counters import operations_mapping
+from torch_operation_counter.ignore_modules import aten_ignore
+from torch_operation_counter.utils import normalize_tuple
 
 MAIN_NAME = "__main__"
 

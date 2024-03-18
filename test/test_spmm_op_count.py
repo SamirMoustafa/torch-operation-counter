@@ -4,7 +4,7 @@ from torch.nn import Module
 from torch.testing import assert_close
 from torch import cuda, device, ones, stack, randint, rand, sparse_coo_tensor, zeros
 
-from torch_ops_counter import OperationsCounterMode
+from torch_operation_counter import OperationsCounterMode
 
 
 class SparseMatrixModule(Module):

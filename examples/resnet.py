@@ -2,7 +2,7 @@ import torch
 from torch import randn
 from torchvision.models import resnet101
 
-from torch_ops_counter import OperationsCounterMode
+from torch_operation_counter import OperationsCounterMode
 
 
 if __name__ == "__main__":
