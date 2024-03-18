@@ -80,7 +80,6 @@ To set up your development environment for contributing to `torch-operation-coun
 - Fork the repository on GitHub
 - Clone your forked repository to your local machine
 - Create a new branch for your feature or bug fix
-- Install development dependencies by running `python setup.py develop`
 - Make your changes locally and test them thoroughly
 - Push your changes to your fork on GitHub and submit a pull request to the main repository
 
