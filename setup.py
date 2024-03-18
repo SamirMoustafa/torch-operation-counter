@@ -11,8 +11,8 @@ setup(
     name=pkg_name,
     version=__version__,
     install_requires=install_requires,
-    packages=find_packages(where=pkg_name),
+    packages=find_packages(),
     author="Samir Moustafa",
     author_email="samir.moustafa.97@gmail.com",
-    url="https://gitlab.cs.univie.ac.at/samirm97cs/torch_ops_counter",
+    url="https://github.com/SamirMoustafa/torch-operation-counter/",
 )
