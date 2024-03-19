@@ -1,7 +1,7 @@
 import inspect
 from collections import OrderedDict
 
-from torch import is_tensor
+from torch import is_tensor, zeros
 from torch.nn import Module
 
 msg_special_args = {"edge_index", "edge_index_i", "edge_index_j", "size", "size_i", "size_j"}
@@ -77,7 +77,7 @@ class MessagePassing(Module):
 
     def aggregate(self, inputs, index, dim_size):
         num_features = inputs.shape[1]
-        index = index.view(-1, 1).expand(-1, num_features) if x.dim() > 1 else index
+        index = index.view(-1, 1).expand(-1, num_features) if inputs.dim() > 1 else index
         return zeros((dim_size, num_features), dtype=inputs.dtype).scatter_reduce_(self.node_dim, index, inputs, self.aggr)
 
     def __repr__(self):
@@ -88,7 +88,7 @@ class MessagePassing(Module):
 
 
 if __name__ == "__main__":
-    from torch import ones, rand, long, zeros, device
+    from torch import ones, rand, long, device
 
     from torch_operation_counter import OperationsCounterMode
 
