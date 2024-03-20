@@ -1,7 +1,7 @@
 import inspect
 from collections import OrderedDict
 
-from torch import is_tensor
+from torch import is_tensor, zeros
 from torch.nn import Module
 
 msg_special_args = {"edge_index", "edge_index_i", "edge_index_j", "size", "size_i", "size_j"}
@@ -77,26 +77,20 @@ class MessagePassing(Module):
 
     def aggregate(self, inputs, index, dim_size):
         num_features = inputs.shape[1]
-        x = zeros((dim_size, num_features), dtype=inputs.dtype)
-        x.scatter_reduce_(self.node_dim, index.view(-1, 1).expand(-1, num_features), inputs, self.aggr)
-        return x
+        index = index.view(-1, 1).expand(-1, num_features) if inputs.dim() > 1 else index
+        return zeros((dim_size, num_features), dtype=inputs.dtype).scatter_reduce_(self.node_dim, index, inputs, self.aggr)
 
     def __repr__(self):
         return "{}(dtype={})".format(self.__class__.__name__, self.dtype)
 
     def message(self, x_j, edge_weight=None):
-        raise NotImplementedError("Not implemented yet.")
+        return x_j if edge_weight is None else edge_weight.view(-1, 1) * x_j
 
 
 if __name__ == "__main__":
-    from torch import ones, rand, long, zeros, device
+    from torch import ones, rand, long, device
 
     from torch_operation_counter import OperationsCounterMode
-
-
-    class NativeMessagePassing(MessagePassing):
-        def message(self, x_j, edge_weight=None):
-            return x_j if edge_weight is None else edge_weight.view(-1, 1) * x_j
 
     device = device("cpu")
 
@@ -122,7 +116,7 @@ if __name__ == "__main__":
     edge_index = ones((2, e), dtype=long).to(device)
     edge_weight = rand(e).to(device)
 
-    conv = NativeMessagePassing()
+    conv = MessagePassing()
 
     with OperationsCounterMode() as ops_counter:
         conv(edge_index, size=(n, n), x=x, edge_weight=edge_weight)

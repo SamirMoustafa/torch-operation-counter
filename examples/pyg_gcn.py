@@ -13,14 +13,11 @@ class GCN(Module):
         self.convs = ModuleList()
         for i in range(num_layers):
             in_channel = in_channels if i == 0 else hidden_channels
-            out_channel = hidden_channels if i < num_layers - 1 else out_channels
-            self.convs.append(GCNConv(in_channel, out_channel, normalize=False))
-        self.fc = Linear(out_channels, out_channels)
+            self.convs.append(GCNConv(in_channel, hidden_channels, add_self_loops=False))
 
     def forward(self, x, edge_index, edge_weight=None):
         for i, conv in enumerate(self.convs):
             x = conv(x, edge_index, edge_weight)
-        x = self.fc(x)
         return x
 
 
@@ -46,7 +43,7 @@ if __name__ == "__main__":
     # out_feature = 3
 
     # model hyper-parameters
-    hidden_channels = 128
+    hidden_channels = 32
 
     model = GCN(num_feature, hidden_channels, out_feature, 2).to(device)
     x = randn(n, num_feature).to(device)
@@ -65,7 +62,6 @@ if __name__ == "__main__":
 
     print()
     # Print the total number of operations by two layers of GCN.
-    # The total number of operations should be similar to 19 GigaOPs as reported in the introduction section of the paper
+    # The total number of operations should be around 19 GigaOPs as reported in the introduction section of the paper
     # Tailor, Shyam A. et al. “Degree-Quant: Quantization-Aware Training for Graph Neural Networks.”, ICLR 2021
     print(f"{model.__class__.__name__}::Total operations: GigiaOP(s) {ops_counter.total_operations / 1e9}")
-    print(f"{model.__class__.__name__}::Total parameters: KiloParam(s) {sum([p.numel() for p in [*model.parameters()][:-1]]) / 1e3}")
