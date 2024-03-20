@@ -17,20 +17,10 @@ def arange_ops(inputs: List[Any], outputs: List[Any]) -> Number:
     return num_operations
 
 
-def scatter_add_ops(inputs: List[Any], outputs: List[Any]) -> Number:
-    dim = inputs[1]
+def scatter_add_ops(inputs: List[Any], outputs: List[Any]) -> int:
     index = inputs[2]
     src = inputs[3]
-    assert index.dim() == src.dim(), "index and src must have the same number of dimensions"
-    num_operations = 0
-    if dim < 0:
-        dim += src.dim()
-    for d in range(src.dim()):
-        if d == dim:
-            unique_indices, counts = index.select(dim, d).view(-1).unique(return_counts=True)
-            num_operations += counts.sum().item()
-        else:
-            num_operations += src[d].numel()
+    num_operations = src.numel() + index.numel()
     return num_operations
 
 
