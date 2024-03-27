@@ -78,7 +78,9 @@ class MessagePassing(Module):
     def aggregate(self, inputs, index, dim_size):
         num_features = inputs.shape[1]
         index = index.view(-1, 1).expand(-1, num_features) if inputs.dim() > 1 else index
-        return zeros((dim_size, num_features), dtype=inputs.dtype).scatter_reduce_(self.node_dim, index, inputs, self.aggr)
+        return zeros((dim_size, num_features),
+                     device=inputs.device,
+                     dtype=inputs.dtype).scatter_reduce_(self.node_dim, index, inputs, self.aggr)
 
     def __repr__(self):
         return "{}(dtype={})".format(self.__class__.__name__, self.dtype)
