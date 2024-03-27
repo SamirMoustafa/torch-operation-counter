@@ -52,44 +52,65 @@ print(f"Total operations: {ops_counter.total_operations / 1e9} GigiaOP(s)")
 
 # Benchmarks
 
-The following table shows the number of operations, parameters, and accuracy for various popular models. The operations are measured in GigaOP(s) and the parameters in MegaParam(s). The accuracy is reported as the mean and standard deviation of the top-1 and top-5 accuracies on ImageNet validation data.
+The following table shows the number of operations, parameters.
 
-| Model              |        GigaOP(s)     |       MegaParam(s)      | Top-1 Accuracy | Top-5 Accuracy |
-|--------------------|----------------------|-------------------------|----------------|----------------|
-| shufflenet_v2_x0_5 | 0.04                 | 1.37                    | 50.64          | 73.59          |
-| mobilenet_v3_small | 0.06                 | 2.54                    | 66.54          | 86.88          |
-| mnasnet0_5         | 0.11                 | 2.22                    | 66.92          | 86.93          |
-| shufflenet_v2_x1_0 | 0.15                 | 2.28                    | 63.63          | 84.31          |
-| mobilenet_v3_large | 0.22                 | 5.48                    | 73.26          | 91.09          |
-| mobilenet_v2       | 0.30                 | 3.50                    | 69.14          | 88.79          |
-| mnasnet1_0         | 0.32                 | 4.38                    | 73.21          | 91.22          |
-| squeezenet1_1      | 0.36                 | 1.24                    | 57.32          | 79.99          |
-| mnasnet1_3         | 0.54                 | 6.28                    | 76.44          | 93.43          |
-| alexnet            | 0.72                 | 61.10                   | 55.55          | 78.46          |
-| squeezenet1_0      | 0.83                 | 1.25                    | 57.11          | 79.70          |
-| googlenet          | 1.52                 | 6.62                    | 66.17          | 87.20          |
-| resnet18           | 1.82                 | 11.69                   | 66.61          | 87.19          |
-| densenet121        | 2.98                 | 7.98                    | 70.87          | 90.11          |
-| densenet169        | 3.54                 | 14.15                   | 72.38          | 91.00          |
-| resnet34           | 3.67                 | 21.80                   | 69.96          | 89.29          |
-| resnet50           | 4.12                 | 25.56                   | 72.41          | 90.87          |
-| resnext50_32x4d    | 4.26                 | 25.03                   | 75.01          | 92.33          |
-| densenet201        | 4.54                 | 20.01                   | 72.68          | 91.31          |
-| vgg11              | 7.63                 | 132.86                  | 68.75          | 88.68          |
-| vgg11_bn           | 7.63                 | 132.87                  | 67.32          | 87.90          |
-| resnet101          | 7.84                 | 44.55                   | 73.94          | 91.85          |
-| densenet161        | 8.13                 | 28.68                   | 74.21          | 92.09          |
-| vgg13              | 11.34                | 133.05                  | 69.63          | 89.06          |
-| vgg13_bn           | 11.34                | 133.05                  | 68.67          | 88.98          |
-| wide_resnet50_2    | 11.43                | 68.88                   | 74.95          | 92.27          |
-| resnet152          | 11.57                | 60.19                   | 75.25          | 92.57          |
-| vgg16              | 15.50                | 138.36                  | 71.49          | 90.45          |
-| vgg16_bn           | 15.50                | 138.37                  | 71.33          | 90.39          |
-| resnext101_32x8d   | 16.48                | 88.79                   | 76.58          | 93.22          |
-| vgg19              | 19.67                | 143.67                  | 72.17          | 90.74          |
-| vgg19_bn           | 19.67                | 143.68                  | 71.84          | 90.68          |
-| wide_resnet101_2   | 22.80                | 126.89                  | 74.68          | 92.23          |
+Table 1 for benchmarking image classification models on the ImageNet dataset with single input size `224 x 224`.
 
+| Model              | GigaOP(s) | MegaParam(s) | Top-1 Accuracy | Top-5 Accuracy |
+|--------------------|-----------|--------------|----------------|----------------|
+| shufflenet_v2_x0_5 | 0.04      | 1.37         | 50.64          | 73.59          |
+| mobilenet_v3_small | 0.06      | 2.54         | 66.54          | 86.88          |
+| mnasnet0_5         | 0.11      | 2.22         | 66.92          | 86.93          |
+| shufflenet_v2_x1_0 | 0.15      | 2.28         | 63.63          | 84.31          |
+| mobilenet_v3_large | 0.22      | 5.48         | 73.26          | 91.09          |
+| mobilenet_v2       | 0.30      | 3.50         | 69.14          | 88.79          |
+| mnasnet1_0         | 0.32      | 4.38         | 73.21          | 91.22          |
+| squeezenet1_1      | 0.36      | 1.24         | 57.32          | 79.99          |
+| mnasnet1_3         | 0.54      | 6.28         | 76.44          | 93.43          |
+| alexnet            | 0.72      | 61.10        | 55.55          | 78.46          |
+| squeezenet1_0      | 0.83      | 1.25         | 57.11          | 79.70          |
+| googlenet          | 1.52      | 6.62         | 66.17          | 87.20          |
+| resnet18           | 1.82      | 11.69        | 66.61          | 87.19          |
+| densenet121        | 2.98      | 7.98         | 70.87          | 90.11          |
+| densenet169        | 3.54      | 14.15        | 72.38          | 91.00          |
+| resnet34           | 3.67      | 21.80        | 69.96          | 89.29          |
+| resnet50           | 4.12      | 25.56        | 72.41          | 90.87          |
+| resnext50_32x4d    | 4.26      | 25.03        | 75.01          | 92.33          |
+| densenet201        | 4.54      | 20.01        | 72.68          | 91.31          |
+| vgg11              | 7.63      | 132.86       | 68.75          | 88.68          |
+| vgg11_bn           | 7.63      | 132.87       | 67.32          | 87.90          |
+| resnet101          | 7.84      | 44.55        | 73.94          | 91.85          |
+| densenet161        | 8.13      | 28.68        | 74.21          | 92.09          |
+| vgg13              | 11.34     | 133.05       | 69.63          | 89.06          |
+| vgg13_bn           | 11.34     | 133.05       | 68.67          | 88.98          |
+| wide_resnet50_2    | 11.43     | 68.88        | 74.95          | 92.27          |
+| resnet152          | 11.57     | 60.19        | 75.25          | 92.57          |
+| vgg16              | 15.50     | 138.36       | 71.49          | 90.45          |
+| vgg16_bn           | 15.50     | 138.37       | 71.33          | 90.39          |
+| resnext101_32x8d   | 16.48     | 88.79        | 76.58          | 93.22          |
+| vgg19              | 19.67     | 143.67       | 72.17          | 90.74          |
+| vgg19_bn           | 19.67     | 143.68       | 71.84          | 90.68          |
+| wide_resnet101_2   | 22.80     | 126.89       | 74.68          | 92.23          |
+
+Table 2 for benchmarking NLP models on the `512` input sequence lengths.
+
+| Model                                 | GigaOP(s) | MegaParam(s) |
+|---------------------------------------|-----------|--------------|
+| squeezebert/squeezebert-mnli-headless | 18.7      | 51.1         |
+| squeezebert/squeezebert-uncased       | 18.7      | 51.1         |
+| distilbert-base-uncased               | 24.26     | 66.96        |
+| bert-base-uncased                     | 48.59     | 109.48       |
+| roberta-base                          | 48.59     | 124.65       |
+| xlm-roberta-base                      | 48.59     | 278.05       |
+| microsoft/layoutlm-base-uncased       | 48.6      | 112.63       |
+| google/bigbird-roberta-base           | 48.73     | 128.06       |
+| gpt2                                  | 48.73     | 124.44       |
+| albert-base-v2                        | 48.78     | 11.69        |
+| facebook/bart-base                    | 58.34     | 140.01       |
+| microsoft/deberta-base                | 72.94     | 139.19       |
+| t5-base                               | 116.78    | 223.5        |
+| microsoft/layoutlm-large-uncased      | 168.24    | 339.34       |
+| facebook/mbart-large-cc25             | 200.68    | 611.9        |
 
 # Contributing to torch-operation-counter
 
