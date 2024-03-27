@@ -45,6 +45,7 @@ ignore = [
     "view_as",
     "zeros",
     "zeros_like",
+    "eye",
 ]
 
 
