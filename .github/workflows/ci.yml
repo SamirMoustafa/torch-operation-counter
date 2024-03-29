@@ -42,11 +42,23 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
     - name: Build package
+      run: python setup.py sdist bdist_wheel
+    - name: Check if version exists on PyPI
+      id: check_version
       run: |
-        python setup.py sdist bdist_wheel
+        PACKAGE_NAME=$(python setup.py --name)
+        CURRENT_VERSION=$(python setup.py --version)
+        VERSION_EXISTS=$(pip index versions $PACKAGE_NAME | grep $CURRENT_VERSION || true)
+        if [ -z "$VERSION_EXISTS" ]; then
+          echo "Version does not exist on PyPI, proceeding with upload."
+          echo "::set-output name=exists::false"
+        else
+          echo "Version already exists on PyPI, skipping upload."
+          echo "::set-output name=exists::true"
+        fi
     - name: Upload to PyPI
-      run: |
-        python -m twine upload dist/*
+      if: steps.check_version.outputs.exists == 'false'
+      run: python -m twine upload dist/*
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
