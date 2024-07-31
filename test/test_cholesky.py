@@ -13,13 +13,15 @@ class TestCholeskyFunctions(unittest.TestCase):
     def test_cholesky_decomposition(self):
         with OperationsCounterMode() as counter:
             torch.linalg.cholesky(self.matrix)
-            self.assertTrue(counter.total_operations > 0)
+            expected_operations = 1/3 * 2**3
+            self.assertEqual(expected_operations, counter.total_operations)
 
     def test_cholesky_inverse(self):
         L = torch.linalg.cholesky(self.matrix)
         with OperationsCounterMode() as counter:
             torch.cholesky_inverse(L)
-            self.assertTrue(counter.total_operations > 0)
+            expected_operations = 2/3 * 2**3
+            self.assertEqual(expected_operations, counter.total_operations)
 
 
 if __name__ == '__main__':
