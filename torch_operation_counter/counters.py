@@ -196,6 +196,22 @@ def full_ops(inputs: List[Any], outputs: List[Any]) -> Number:
     num_operations = prod(output_tensor.shape)  # Each element set once
     return num_operations
 
+def choleksy_ops(inputs: List[Any], outputs: List[Any]) -> Number:
+    # count of operations is 1/6 * n^3 multiplications and 1/6*n^3 additions.
+    # In accordance with
+    # - https://web.archive.org/web/20240119062842/https://www.cs.princeton.edu/courses/archive/fall20/cos302/notes/cos302_f20_precept5_lu_cholesky.pdf slide 20
+    # - https://web.archive.org/web/20240513153538/https://www.cs.utexas.edu/~flame/Notes/NotesOnCholReal.pdf page 8
+    n = inputs[0].shape[-1]
+    batch_count = prod(inputs[0].shape[:-2])
+    return (1/3 * n**3) * batch_count
+
+def cholesky_inverse_ops(inputs: List[Any], outputs: List[Any]) -> Number:
+    # The input is L, which is of the same size as the original matrix.
+    # count of multiplications is 1/3*n^3 according to https://arxiv.org/pdf/1111.4144 page 3.
+    # the count of additions is roughly same: 1/3*n^3.
+    n = inputs[0].shape[-1]
+    batch_count = prod(inputs[0].shape[:-2])
+    return (2/3 * n**3) * batch_count
 
 operations_mapping = {
     ops.aten.min: basic_ops,
@@ -285,4 +301,6 @@ operations_mapping = {
     ops.aten.masked_fill: masked_fill_ops,
     ops.aten.masked_fill_: masked_fill_ops,
     ops.aten.full: full_ops,
+    ops.aten.linalg_cholesky_ex: choleksy_ops,
+    ops.aten.cholesky_inverse: cholesky_inverse_ops,
 }
