@@ -48,16 +48,17 @@ jobs:
       run: |
         PACKAGE_NAME=$(python setup.py --name)
         CURRENT_VERSION=$(python setup.py --version)
-        if ! twine upload --skip-existing dist/*; then
-          echo "Version does not exist on PyPI, proceeding with upload."
-          echo "exists=false" >> $GITHUB_ENV
-        else
-          echo "Version already exists on PyPI, skipping upload."
+        OUTPUT=$(twine check dist/*)
+        if ! echo "$OUTPUT" | grep -q 'PASSED'; then
+          echo "Check failed, not uploading"
           echo "exists=true" >> $GITHUB_ENV
+        else
+          echo "Check passed, proceed with upload."
+          echo "exists=false" >> $GITHUB_ENV
         fi
     - name: Upload to PyPI
       if: env.exists == 'false'
-      run: python -m twine upload dist/*
+      run: twine upload --skip-existing dist/*
       env:
         TWINE_USERNAME: __token__
         TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
