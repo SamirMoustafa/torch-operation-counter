@@ -15,9 +15,9 @@ jobs:
         python-version: ["3.8", "3.10"]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
@@ -32,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: build-and-test
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: "3.10"
     - name: Install dependencies
@@ -50,14 +50,14 @@ jobs:
         CURRENT_VERSION=$(python setup.py --version)
         VERSION_EXISTS=$(pip index versions $PACKAGE_NAME | grep $CURRENT_VERSION || true)
         if [ -z "$VERSION_EXISTS" ]; then
-          echo "Version does not exist on PyPI, proceeding with upload."
-          echo "::set-output name=exists::false"
+          echo "Version does not exist on PyPI, proceeding with upload." >> $GITHUB_ENV
+          echo "exists=false" >> $GITHUB_ENV
         else
-          echo "Version already exists on PyPI, skipping upload."
-          echo "::set-output name=exists::true"
+          echo "Version already exists on PyPI, skipping upload." >> $GITHUB_ENV
+          echo "exists=true" >> $GITHUB_ENV
         fi
     - name: Upload to PyPI
-      if: steps.check_version.outputs.exists == 'false'
+      if: env.exists == 'false'
       run: python -m twine upload dist/*
       env:
         TWINE_USERNAME: __token__
