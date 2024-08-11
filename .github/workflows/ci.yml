@@ -50,12 +50,11 @@ jobs:
         CURRENT_VERSION=$(python setup.py --version)
         VERSION_EXISTS=$(pip index versions $PACKAGE_NAME | grep $CURRENT_VERSION || true)
         if [ -z "$VERSION_EXISTS" ]; then
-          echo "Version does not exist on PyPI, proceeding with upload." >> $GITHUB_ENV
+          echo "Version does not exist on PyPI, proceeding with upload."
           echo "exists=false" >> $GITHUB_ENV
         else
-          echo "Version already exists on PyPI, skipping upload." >> $GITHUB_ENV
+          echo "Version already exists on PyPI, skipping upload."
           echo "exists=true" >> $GITHUB_ENV
-        fi
     - name: Upload to PyPI
       if: env.exists == 'false'
       run: python -m twine upload dist/*
