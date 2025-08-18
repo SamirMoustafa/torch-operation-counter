@@ -1,10 +1,15 @@
+from os import path
 from setuptools import find_packages, setup
 
-__version__ = "0.3.5"
+__version__ = "0.3.6"
 
 install_requires = [
     "torch>=1.13.1",
 ]
+
+# Get the long description from the README file
+with open(path.join(path.abspath(path.dirname(__file__)), "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
 
 pkg_name = "torch_operation_counter"
 setup(
