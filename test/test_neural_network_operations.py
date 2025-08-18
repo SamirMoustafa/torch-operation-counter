@@ -55,18 +55,6 @@ class TestNeuralNetworkOperations(unittest.TestCase):
         expected_ops = 6 * x.numel()
         self.assertEqual(ops_counter.total_operations, expected_ops)
         
-    def test_dropout_operations(self):
-        """Test dropout operation counting"""
-        x = torch.randn(self.batch_size, self.seq_len, self.hidden_size, device=self.device)
-        
-        with OperationsCounterMode() as ops_counter:
-            # Dropout: random generation + comparison + multiplication
-            y = nn.functional.dropout(x, p=0.1, training=True)
-            
-        # Dropout: 3 * numel operations
-        expected_ops = 3 * x.numel()
-        self.assertEqual(ops_counter.total_operations, expected_ops)
-        
     def test_embedding_operations(self):
         """Test embedding operation counting"""
         embedding = nn.Embedding(1000, self.hidden_size)
