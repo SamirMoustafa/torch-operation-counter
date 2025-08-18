@@ -1,7 +1,7 @@
 <div align="center">
 
 <h1> Torch Operation Counter</h1>
-<img src="docs/logo/torch-operation-counter-logo-512.png"/>
+<img src="docs/logo/torch-operation-counter-logo-256.png"/>
 
 ![python-3.10](https://img.shields.io/badge/python-3.10%2B-blue)
 ![pytorch-1.13.1](https://img.shields.io/badge/torch-1.13.1%2B-orange)
