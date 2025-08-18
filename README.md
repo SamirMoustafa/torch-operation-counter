@@ -145,6 +145,17 @@ To set up your development environment for contributing to `torch-operation-coun
 - Make your changes locally and test them thoroughly
 - Push your changes to your fork on GitHub and submit a pull request to the main repository
 
+## Cite
+```
+@misc{Moustafa2023,
+  author = {Moustafa, Samir},
+  title = {Torch Operation Counter},
+  year = {2023},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/SamirMoustafa/torch-operation-counter}},
+}
+```
 ## License
 This project is licensed under the terms of the GPL 2.0 license.
 
