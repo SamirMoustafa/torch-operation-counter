@@ -20,4 +20,6 @@ setup(
     author="Samir Moustafa",
     author_email="samir.moustafa.97@gmail.com",
     url="https://github.com/SamirMoustafa/torch-operation-counter/",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
 )
